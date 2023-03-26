@@ -20,7 +20,6 @@ Module.register("MMM-UKNationalRail", {
     apiBase:
       "https://huxley2.azurewebsites.net/departures/{from}/to/{to}?accessToken={token}",
 
-    stationCode: "", // CRS code for station
     app_key: "", // TransportAPI App Key
     app_id: "", // TransportAPI App ID
     from: "",
@@ -163,42 +162,17 @@ Module.register("MMM-UKNationalRail", {
           if (myTrain.actualDeparture != null) {
             // Only display actual time if it exists
             actualDepCell.innerHTML = "(" + myTrain.actualDeparture + ")";
+            if (myTrain.actualDeparture == "On Time") {
+              actualDepCell.className = "bright nonews status";
+            } else {
+              actualDepCell.className = "bright late status";
+            }
           } else {
             actualDepCell.innerHTML = "&nbsp;";
           }
           actualDepCell.className = "actualTime";
           row.appendChild(actualDepCell);
         }
-
-        //Train status cell
-        var statusCell = document.createElement("td");
-        statusCell.innerHTML = " " + titleCase(myTrain.status ?? "") + " ";
-
-        if (myTrain.status == "ON TIME") {
-          statusCell.className = "bright nonews status";
-        } else if (myTrain.status == "LATE") {
-          statusCell.className = "bright late status";
-        } else if (myTrain.status == "EARLY") {
-          statusCell.className = "bright early status";
-        } else if (myTrain.status == "CANCELLED") {
-          statusCell.className = "late status";
-        } else if (myTrain.status == "ARRIVED") {
-          statusCell.className = "early status";
-        } else if (
-          myTrain.status == "REINSTATEMENT" ||
-          myTrain.status == "STARTS HERE"
-        ) {
-          statusCell.className = "goodnews status";
-        } else if (
-          myTrain.status == "NO REPORT" ||
-          myTrain.status == "OFF ROUTE"
-        ) {
-          statusCell.className = "nonews status";
-        } else {
-          statusCell.className = "nonews status";
-        }
-
-        row.appendChild(statusCell);
 
         if (this.config.fade && this.config.fadePoint < 1) {
           if (this.config.fadePoint < 0) {
@@ -290,7 +264,6 @@ Module.register("MMM-UKNationalRail", {
           this.trains.data.push({
             plannedDeparture: thisTrain.std,
             actualDeparture: thisTrain.etd,
-            status: thisTrain.delayReason,
             origin: thisTrain.origin.locationName,
             destination:
               thisTrain.destination[thisTrain.destination.length - 1]
