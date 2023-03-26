@@ -172,7 +172,7 @@ Module.register("MMM-UKNationalRail", {
 
         //Train status cell
         var statusCell = document.createElement("td");
-        statusCell.innerHTML = " " + titleCase(myTrain.status) + " ";
+        statusCell.innerHTML = " " + titleCase(myTrain.status ?? "") + " ";
 
         if (myTrain.status == "ON TIME") {
           statusCell.className = "bright nonews status";
