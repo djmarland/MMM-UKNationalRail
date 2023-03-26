@@ -162,7 +162,7 @@ Module.register("MMM-UKNationalRail", {
           if (myTrain.actualDeparture != null) {
             // Only display actual time if it exists
             actualDepCell.innerHTML = "(" + myTrain.actualDeparture + ")";
-            if (myTrain.actualDeparture?.toLowerCase == "on time") {
+            if (myTrain.actualDeparture?.toLowerCase() == "on time") {
               actualDepCell.className = "bright nonews status";
             } else {
               actualDepCell.className = "bright late status";
