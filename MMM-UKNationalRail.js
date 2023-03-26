@@ -163,14 +163,14 @@ Module.register("MMM-UKNationalRail", {
             // Only display actual time if it exists
             actualDepCell.innerHTML = "(" + myTrain.actualDeparture + ")";
             if (myTrain.actualDeparture?.toLowerCase() == "on time") {
-              actualDepCell.className = "bright nonews status";
+              actualDepCell.className = "actualTime bright nonews status";
             } else {
-              actualDepCell.className = "bright late status";
+              actualDepCell.className = "actualTime bright late status";
             }
           } else {
             actualDepCell.innerHTML = "&nbsp;";
+            actualDepCell.className = "actualTime";
           }
-          actualDepCell.className = "actualTime";
           row.appendChild(actualDepCell);
         }
 
