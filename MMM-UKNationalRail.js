@@ -292,7 +292,9 @@ Module.register("MMM-UKNationalRail", {
             actualDeparture: thisTrain.etd,
             status: thisTrain.delayReason,
             origin: thisTrain.origin.locationName,
-            destination: thisTrain.destination.locationName,
+            destination:
+              thisTrain.destination[thisTrain.destination.length - 1]
+                .locationName,
             platform: thisTrain.platform,
           });
         }
